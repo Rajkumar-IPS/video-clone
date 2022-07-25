@@ -1,28 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import videoArray from "../movie.json"
 
-const videoCard = () => {
+const VideoCard = () => {
 
-    console.log('videoArray', videoArray.videos)
     return (
         <>
             <div className="container">
-                <div className='row'>
-                    {videoArray.videos.map((val) => {
+                <div className='row mt-5' >
+                    {videoArray.videos.map((val, index) => {
                         return (
                             <>
-                                <div className='col-lg-4'>
-                                    <div class="card" style={{ width: "18rem" }}>
-                                        <video width="" height="240" controls>
-                                            <source src={val.sources[0]} type="video/mp4" />
-                                            <source src="movie.ogg" type="video/ogg" />
-                                            Your browser does not support the video tag.
-                                        </video>
-                                        <div class="card-body">
-                                            <h5 class="card-title">Card title</h5>
-                                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                                        </div>
+                                <div className='col-lg-4 card-main-hover mt-3' key={index} >
+                                    <div className="card" style={{ width: "18rem" }} >
+                                        <video
+                                            src={val.sources}
+                                            controls
+                                            muted={true}
+                                            onMouseEnter={(e) => e.currentTarget.play()}
+                                            onMouseLeave={(e) => e.currentTarget.pause()}
+                                        />
                                     </div>
                                 </div>
                             </>
@@ -34,4 +30,4 @@ const videoCard = () => {
     )
 }
 
-export default videoCard
+export default VideoCard
