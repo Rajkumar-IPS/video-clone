@@ -29,22 +29,17 @@
 }
 
 /* ----------------------------------------- */
-.card-main-hover div video{
-  transition: transform .2s; 
+.video-card {
+  transition: transform .2s;
 }
 
-.card-main-hover div video:hover{
+.video-card:hover {
   transform: scale(1.2);
   z-index: 999;
   cursor: pointer;
 }
-/* ----------------------------------------- */
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.video-react .video-react-control-bar {
+  background-color: transparent !important;
 }
