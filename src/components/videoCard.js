@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import videoArray from "../movie.json"
-import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, PlayToggle, CurrentTimeDisplay, TimeDivider, FullscreenToggle } from 'video-react';
+import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, PlayToggle, CurrentTimeDisplay, TimeDivider, FullscreenToggle, ProgressControl } from 'video-react';
 import "../../node_modules/video-react/dist/video-react.css";
 import $ from 'jquery'
 import { useNavigate } from 'react-router-dom'
@@ -14,6 +14,8 @@ const VideoCard = () => {
         , id: ""
     })
 
+
+    console.log(videoArray);
     const [routerState, setRouterState] = useState({})
 
     // console.log( 'player', player )
@@ -50,27 +52,30 @@ const VideoCard = () => {
                     {videoArray.videos.map((val) => {
                         return (
 
-                            <div className='col-lg-4 card-main-hover mt-3' key={ val.id } onMouseEnter={ ( e ) => mouseEnterFunction( val.id ) } onMouseLeave={ e => mouseLeaveFunction( val.id ) } onClick={ e => details( e ) } >
-                                <div className="card" style={ { width: "22rem" } } >
+                            <div className='col-lg-4 card-main-hover mt-3' key={val.id} onMouseEnter={(e) => mouseEnterFunction(val.id)} onMouseLeave={e => mouseLeaveFunction(val.id)} onClick={e => details(e)} >
+                                <div className="card" style={{ width: "22rem" }} >
                                     <Player
-                                        fluid={ true }
-                                        poster="/assets/poster.png"
-                                        src={ val.sources }
+                                        fluid={true}
+                                        poster={val.thumb}
+                                        src={val.sources}
                                         preload='none'
                                         // ref={ player => {
                                         //     setPlayer( player )
                                         // } }
                                         className="hoverrrr video-card"
-                                        videoId={ val.id }
+                                        videoId={val.id}
 
                                     >
                                         <BigPlayButton position="center" />
 
 
-                                        <ControlBar autoHide={ true } autoHideTime={ 3000 } disableDefaultControls>
+                                        <ControlBar autoHide={true} autoHideTime={3000} disableDefaultControls>
 
-                                            <PlayToggle />
-                                            <FullscreenToggle className="ms-auto" />
+                                            <PlayToggle order={1.1} />
+                                            {/* {/ <LoadProgressBars / > /} */}
+                                            < ProgressControl order={2.2} />
+                                            <FullscreenToggle className="ms-auto" order={3.1} />
+
 
                                         </ControlBar>
 
