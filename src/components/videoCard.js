@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import videoArray from "../movie.json"
-import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton } from 'video-react';
+import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, PlayToggle, CurrentTimeDisplay, TimeDivider, FullscreenToggle } from 'video-react';
 import "../../node_modules/video-react/dist/video-react.css";
 import $ from 'jquery'
 import { useNavigate } from 'react-router-dom'
@@ -50,9 +50,39 @@ const VideoCard = () => {
                     { videoArray.videos.map( ( val ) => {
                         return (
 
-                            <div className='col-lg-4 card-main-hover mt-3' key={ val.id } onMouseEnter={ ( e ) => mouseEnterFunction( val.id ) } onMouseLeave={ e => mouseLeaveFunction( val.id ) } >
+                            <div className='col-lg-4 card-main-hover mt-3' key={ val.id } onMouseEnter={ ( e ) => mouseEnterFunction( val.id ) } onMouseLeave={ e => mouseLeaveFunction( val.id ) } onClick={ e => details( e ) } >
                                 <div className="card" style={ { width: "22rem" } } >
-                                    <video className='video-card' src={ val.sources } id={ val.id }  preload='none' onClick={ ( e ) => details( e ) } />
+                                    <Player
+                                        fluid={ true }
+                                        poster="/assets/poster.png"
+                                        src={ val.sources }
+                                        preload='none'
+                                        // ref={ player => {
+                                        //     setPlayer( player )
+                                        // } }
+                                        className="hoverrrr video-card"
+                                        videoId={ val.id }
+
+                                    >
+                                        <BigPlayButton position="center" />
+
+
+                                        <ControlBar autoHide={ true } autoHideTime={ 3000 } disableDefaultControls>
+
+                                            <PlayToggle />
+                                            <FullscreenToggle className="ms-auto" />
+
+                                        </ControlBar>
+
+
+
+
+
+
+
+
+
+                                    </Player>
                                 </div>
                             </div>
 
