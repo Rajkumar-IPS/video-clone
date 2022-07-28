@@ -26,3 +26,16 @@
 .video-react .video-react-control-bar {
   background-color: transparent !important;
 }
+
+.video-react .video-react-big-play-button {
+  border-radius: 50% !important;
+  width: 1.5em !important;
+}
+
+
+.video-react .video-react-big-play-button.video-react-big-play-button-center {
+  margin-top: 0 !important;
+  margin-left: 0 !important;
+  transform: translate(-50%,-50%);
+
+}
