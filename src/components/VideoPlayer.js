@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
-import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, ProgressControl, VolumeMenuButton } from 'video-react';
+import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, ProgressControl, VolumeMenuButton, PlayToggle, FullscreenToggle } from 'video-react';
 import "../../node_modules/video-react/dist/video-react.css";
 import LockIcon from './lockIcon';
 
@@ -8,12 +8,25 @@ import LockIcon from './lockIcon';
 const VideoPlayer = () => {
     const location = useLocation();
     const [lockStatus, setLockStatus] = useState(true)
+    const [player, setPlayer] = useState(true)
+
 
 
     const lockScreenFun = () => {
         lockStatus == true ?
             setLockStatus(false) :
             setLockStatus(true)
+    }
+
+    const leftDoubleClick = () => {
+        console.log("left");
+        player.replay(10)
+    }
+
+    const rightDoubleClick = () => {
+        console.log("right");
+        player.forward(10)
+
     }
 
     return (
@@ -30,24 +43,33 @@ const VideoPlayer = () => {
                     poster="/assets/poster.png"
                     src={location.state.src}
                     preload='none'
-                    // ref={ player => {
-                    //     setPlayer( player )
-                    // } }
                     className="hoverrrr"
                     width={900}
                     height={600}
+                    ref={player => {
+                        setPlayer(player)
+                    }}
+
 
                 >
+                    <div className='d-flex' style={{ justifyContent: "space-between", height: "92%" }} >
+                        <div className='' style={{ zIndex: 999, cursor: "pointer", width: "25%" }} onDoubleClick={leftDoubleClick}></div>
+                        <div className='' style={{ zIndex: 999, cursor: "pointer", width: "25%" }} onClick={rightDoubleClick}></div>
+                    </div>
                     <BigPlayButton position="center" />
                     {
                         lockStatus == true ?
-                            <ControlBar autoHide={false} autoHideTime={3000} disableDefaultControls>
+                            <ControlBar autoHide={true} autoHideTime={3000} disableDefaultControls>
                                 {/* <p id='lock' style={{ fontSize: "14px" }} onClick={() => setLockStatus(false)} >lock</p> */}
                                 <LockIcon lockScreenFun={lockScreenFun} lockStatus={lockStatus} />
+
+                                <PlayToggle order={1} />
                                 <ReplayControl seconds={10} order={2.1} />
                                 <ForwardControl seconds={10} order={2.2} />
-                                <VolumeMenuButton order={1} />
-                                < ProgressControl width={1} />
+                                <VolumeMenuButton order={1} vertical={true} />
+                                <ProgressControl width={1} />
+                                <FullscreenToggle className="ms-auto" order={3.1} />
+
 
 
                             </ControlBar> :
@@ -65,8 +87,8 @@ const VideoPlayer = () => {
 
 
 
-                </Player>
-            </div>
+                </Player >
+            </div >
         </>
     )
 }
