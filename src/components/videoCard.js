@@ -15,17 +15,23 @@ const VideoCard = () => {
     })
 
 
-    console.log(videoArray);
+    console.log(state);
     const [routerState, setRouterState] = useState({})
 
     // console.log( 'player', player )
     const mouseEnterFunction = (e) => {
-
-        $(`#${e}`).prop('muted', true).get(0).play()
+        if (
+            $(`#${e}`).prop('muted', true).get(0).play()
+        ) {
+            setState(1)
+        }
     }
     const mouseLeaveFunction = (e) => {
         $(`#${e}`).prop('muted', false).get(0).pause()
-
+        console.log($(`#${e}`));
+    }
+    const mouseBlurFunction = (e) => {
+        $(`#${e}`).prop('muted', false).get(0).pause()
     }
 
     const details = (e) => {
@@ -43,7 +49,6 @@ const VideoCard = () => {
                 src: e.target.src
             }
         })
-        window.sessionStorage.setItem("status", true)
     }
 
     return (
@@ -53,7 +58,11 @@ const VideoCard = () => {
                     {videoArray.videos.map((val) => {
                         return (
 
-                            <div className='col-lg-4 card-main-hover mt-3' key={val.id} onMouseEnter={(e) => mouseEnterFunction(val.id)} onMouseLeave={e => mouseLeaveFunction(val.id)} onClick={e => details(e)} >
+                            <div className='col-lg-4 col-md-6 col-12  card-main-hover mt-3' key={val.id}
+                                onMouseOver={(e) => mouseEnterFunction(val.id)}
+                                onMouseOut={e => mouseLeaveFunction(val.id)}
+                                onBlur={e => mouseBlurFunction(val.id)}
+                                onClick={e => details(e)} >
                                 <div className="card" style={{ width: "22rem" }} >
                                     <Player
                                         fluid={true}
@@ -76,7 +85,6 @@ const VideoCard = () => {
                                     </Player>
                                 </div>
                             </div>
-
                         )
                     })}
                 </div>

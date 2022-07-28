@@ -26,3 +26,26 @@
 .video-react .video-react-control-bar {
   background-color: transparent !important;
 }
+
+
+@media only screen and (max-width: 768px) {
+ .card-main-hover .card{
+  width: auto !important;
+ }
+}
+
+
+#hideMe {
+  -webkit-animation: cssAnimation 5s backwards; 
+  animation: cssAnimation 5s backwards;
+}
+@keyframes cssAnimation {
+  0%   {opacity: 1;}
+  90%  {opacity: 1;}
+  100% {opacity: 1;}
+}
+@-webkit-keyframes cssAnimation {
+  0%   {opacity: 1;}
+  90%  {opacity: 1;}
+  100% {opacity: 1;}
+}

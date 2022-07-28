@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
-import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, ProgressControl, VolumeMenuButton, PlayToggle, FullscreenToggle } from 'video-react';
+import {
+    Player, ControlBar, ReplayControl, ForwardControl,
+    BigPlayButton, ProgressControl, VolumeMenuButton, PlayToggle, FullscreenToggle, PlaybackRateMenuButton, CurrentTimeDisplay, TimeDivider
+} from 'video-react';
 import "../../node_modules/video-react/dist/video-react.css";
 import LockIcon from './lockIcon';
+import forward from '../icons8-forward-10-60.png';
+import backward from '../icons8-replay-10-60.png';
 
 
 const VideoPlayer = () => {
@@ -34,6 +39,11 @@ const VideoPlayer = () => {
 
     }
 
+    const playRate = () => {
+        // console.log(player.duration());
+    }
+
+
 
 
     return (
@@ -57,32 +67,38 @@ const VideoPlayer = () => {
                         setPlayer(player)
                     }}
                     startTime={location.state.currentTime}
-                    
+
                     autoPlay={true}
 
 
                 >
-                    <div className='d-flex' style={{ justifyContent: "space-between", height: "92%" }} >
-                        <div className='' style={{ zIndex: 999, cursor: "pointer", width: "25%" }} onDoubleClick={leftDoubleClick}></div>
-                        <div className='' style={{ zIndex: 999, cursor: "pointer", width: "25%" }} onClick={rightDoubleClick}></div>
+                    <div className='d-flex' style={{ justifyContent: "space-between", height: "92%" }} id="hideMe">
+                        <div className='' style={{ zIndex: 999, cursor: "pointer", width: "25%", display: "flex", justifyContent: "center", alignItems: "center" }} >
+                            <img src={backward} onDoubleClick={leftDoubleClick} style={{ width: "60px" }} />
+                        </div >
+                        <div className='' style={{ zIndex: 999, cursor: "pointer", width: "25%", display: "flex", justifyContent: "center", alignItems: "center" }} onClick={rightDoubleClick}>
+                            <img src={forward} onDoubleClick={leftDoubleClick} style={{ width: "60px" }} />
+
+                        </div>
                     </div>
                     <BigPlayButton position="center" />
                     {
                         lockStatus == true ?
                             <ControlBar autoHide={true} autoHideTime={3000} disableDefaultControls>
-                                {/* <p id='lock' style={{ fontSize: "14px" }} onClick={() => setLockStatus(false)} >lock</p> */}
                                 <LockIcon lockScreenFun={lockScreenFun} lockStatus={lockStatus} />
 
+                                <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
                                 <PlayToggle order={1} />
                                 <ReplayControl seconds={10} order={2.1} />
                                 <ForwardControl seconds={10} order={2.2} />
+                                <CurrentTimeDisplay order={2} />
+                                <TimeDivider order={2} />
                                 <VolumeMenuButton order={1} vertical={true} />
                                 <ProgressControl width={1} />
                                 <FullscreenToggle className="ms-auto" order={3.1} />
 
                             </ControlBar> :
                             <ControlBar disableDefaultControls={true} >
-                                {/* <p id='lock' style={{ fontSize: "14px" }} onClick={() => setLockStatus(true)} >unlock</p> */}
                                 <LockIcon lockScreenFun={lockScreenFun} />
 
                             </ControlBar>
