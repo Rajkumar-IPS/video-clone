@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, ProgressControl, VolumeMenuButton, PlayToggle, FullscreenToggle } from 'video-react';
 import "../../node_modules/video-react/dist/video-react.css";
@@ -9,6 +9,7 @@ const VideoPlayer = () => {
     const location = useLocation();
     const [lockStatus, setLockStatus] = useState(true)
     const [player, setPlayer] = useState(true)
+    const [currentTime, setCurrentTime] = useState()
 
 
 
@@ -20,14 +21,20 @@ const VideoPlayer = () => {
 
     const leftDoubleClick = () => {
         console.log("left");
-        player.replay(10)
+        if (lockStatus == true) {
+            player.replay(10)
+        }
     }
 
     const rightDoubleClick = () => {
         console.log("right");
-        player.forward(10)
+        if (lockStatus == true) {
+            player.forward(10)
+        }
 
     }
+
+
 
     return (
 
@@ -49,6 +56,9 @@ const VideoPlayer = () => {
                     ref={player => {
                         setPlayer(player)
                     }}
+                    startTime={location.state.currentTime}
+                    
+                    autoPlay={true}
 
 
                 >
@@ -70,8 +80,6 @@ const VideoPlayer = () => {
                                 <ProgressControl width={1} />
                                 <FullscreenToggle className="ms-auto" order={3.1} />
 
-
-
                             </ControlBar> :
                             <ControlBar disableDefaultControls={true} >
                                 {/* <p id='lock' style={{ fontSize: "14px" }} onClick={() => setLockStatus(true)} >unlock</p> */}
@@ -79,13 +87,6 @@ const VideoPlayer = () => {
 
                             </ControlBar>
                     }
-
-
-
-
-
-
-
 
                 </Player >
             </div >
