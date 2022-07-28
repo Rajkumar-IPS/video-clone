@@ -43,6 +43,7 @@ const VideoCard = () => {
                 src: e.target.src
             }
         })
+        window.sessionStorage.setItem("status", true)
     }
 
     return (
@@ -64,29 +65,14 @@ const VideoCard = () => {
                                         // } }
                                         className="hoverrrr video-card"
                                         videoId={val.id}
-
                                     >
                                         <BigPlayButton position="center" />
-
-
                                         <ControlBar autoHide={true} autoHideTime={3000} disableDefaultControls>
-
                                             <PlayToggle order={1.1} />
                                             {/* {/ <LoadProgressBars / > /} */}
                                             < ProgressControl order={2.2} />
                                             <FullscreenToggle className="ms-auto" order={3.1} />
-
-
                                         </ControlBar>
-
-
-
-
-
-
-
-
-
                                     </Player>
                                 </div>
                             </div>
