@@ -1,20 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom';
 import {
-    Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, ProgressControl, VolumeMenuButton, PlayToggle, FullscreenToggle, CurrentTimeDisplay,
-    TimeDivider, DurationDisplay, RemainingTimeDisplay,
+    Player, ControlBar, ReplayControl, ForwardControl,
+    BigPlayButton, ProgressControl, VolumeMenuButton,
+    PlayToggle, FullscreenToggle, PlaybackRateMenuButton,
+    CurrentTimeDisplay, TimeDivider
 } from 'video-react';
 import "../../node_modules/video-react/dist/video-react.css";
 import LockIcon from './lockIcon';
+import forward from '../icons8-forward-10-60.png';
+import backward from '../icons8-replay-10-60.png';
+import playIcon from '../icons8-play-button-circled-90.png';
+import pauseIcon from '../icons8-pause-90.png';
 import movies from '../movie.json'
+import $ from "jquery"
+
 
 const VideoPlayer = () => {
     const location = useLocation();
+    const { id, currentTime } = useParams()
+
     const [ lockStatus, setLockStatus ] = useState( true )
     const [ player, setPlayer ] = useState( true )
-    // const [ currentTime, setCurrentTime ] = useState()
+    const [ playVideo, setPlayVideo ] = useState( false )
+    // const [currentTime, setCurrentTime] = useState()
 
-    const { id, currentTime } = useParams()
+
+
     const lockScreenFun = () => {
         lockStatus == true ?
             setLockStatus( false ) :
@@ -37,76 +49,112 @@ const VideoPlayer = () => {
         }
 
     }
+    const playClick = () => {
+        player.play();
+        setPlayVideo( true )
+    }
+
+    const stopClick = () => {
+        player.pause();
+        setPlayVideo( false )
+    }
+
+    const playRate = () => {
+        // console.log(player.duration());
+    }
+
+    const mouserOver = () => {
+
+    }
 
     const filterMovies = movies.videos.filter( val => val.id === id )
-    console.log( 'filterMovies', filterMovies )
 
 
+  
     return (
+
         <>
+
             {
-                filterMovies.map( val => <>
-                    {/* 
-                    <div>{ val.sources }</div>
-                    <div>{ currentTime }</div> */}
+                filterMovies.map( val =>
+                    <>
+                        <div className='d-flex justify-content-center align-items-center main-section'>
+                            <div className='video-player-box' onMouseOver={ mouserOver }>
+                                <Player
+                                    fluid={ true }
+                                    poster="/assets/poster.png"
+                                    src={ val.sources }
+                                    preload='none'
+                                    className="hoverrrr"
+                                    // width={900}
+                                    // height={600}
+                                    ref={ player => {
+                                        setPlayer( player )
+                                    } }
+                                    startTime={ currentTime }
 
+                                    autoPlay={ true }
+                                    muted={ true }
 
-                    <div className='d-flex justify-content-center align-items-center main-section'>
-                        <div className='video-player-box'>
-                            <Player
-                                fluid={ true }
-                                poster="/assets/poster.png"
-                                src={ val.sources }
-                                preload='none'
-                                className="hoverrrr"
-                                // width={ 900 }
-                                // height={ 600 }
-                                ref={ player => {
-                                    setPlayer( player )
-                                } }
-                                startTime={ currentTime ? currentTime : 0 }
-                                muted={ true }
-                                autoPlay={ true }
-                                pictureInPicture
+                                >
+                                    <div className='d-flex hideDiv' style={ { justifyContent: "space-between", height: "80%", width: "100%", position: "absolute", top: 0, left: 0 } }>
+                                        { lockStatus == true ?
+                                            <>
 
-                            >
-                                <div className='d-flex' style={ { justifyContent: "space-between", height: "92%", width: "100%", position: "absolute", top: 0, left: 0 } } >
-                                    <div className='' style={ { zIndex: 999, cursor: "pointer", width: "25%" } } onDoubleClick={ leftDoubleClick }></div>
-                                    <div className='' style={ { zIndex: 999, cursor: "pointer", width: "25%" } } onClick={ rightDoubleClick }></div>
-                                </div>
-                                <BigPlayButton position="center" />
-                                {
-                                    lockStatus == true ?
-                                        <ControlBar autoHide={ false } autoHideTime={ 3000 } disableDefaultControls>
-                                            {/* <p id='lock' style={{ fontSize: "14px" }} onClick={() => setLockStatus(false)} >lock</p> */ }
-                                            <LockIcon lockScreenFun={ lockScreenFun } lockStatus={ lockStatus } />
+                                                <div className='' style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } id="hideMe" onDoubleClick={ leftDoubleClick }>
+                                                    <img src={ backward } onDoubleClick={ leftDoubleClick } style={ { width: "60px" } } />
+                                                </div >
+                                                { playVideo == false ?
+                                                    (
+                                                        <div className='' style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } id="hideMe" onClick={ playClick }>
+                                                            <img src={ playIcon } onClick={ playClick } style={ { width: "60px" } } />
 
-                                            <PlayToggle order={ 1 } />
-                                            <ReplayControl seconds={ 10 } order={ 2.1 } />
-                                            <ForwardControl seconds={ 10 } order={ 2.2 } />
-                                            <VolumeMenuButton order={ 1 } vertical={ true } />
-                                            <ProgressControl width={ 1 } />
-                                            <RemainingTimeDisplay className="me-3" />
-                                            <TimeDivider />
-                                            <DurationDisplay />
-                                            <FullscreenToggle className="ms-auto" order={ 3.1 } />
+                                                        </div> ) :
+                                                    ( <div className='' style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } id="hideMe" onClick={ stopClick }>
+                                                        <img src={ pauseIcon } onClick={ stopClick } style={ { width: "60px" } } />
 
-                                        </ControlBar> :
-                                        <ControlBar disableDefaultControls={ true } >
-                                            {/* <p id='lock' style={{ fontSize: "14px" }} onClick={() => setLockStatus(true)} >unlock</p> */ }
-                                            <LockIcon lockScreenFun={ lockScreenFun } />
+                                                    </div>
+                                                    )
+                                                }
+                                                <div className='' style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } id="hideMe" onDoubleClick={ rightDoubleClick }>
+                                                    <img src={ forward } onDoubleClick={ rightDoubleClick } style={ { width: "60px" } } />
 
-                                        </ControlBar>
-                                }
+                                                </div>
+                                            </>
+                                            : ""
+                                        }
 
-                            </Player >
+                                    </div>
+                                    {/* <BigPlayButton position="center" /> */ }
+                                    {
+                                        lockStatus == true ?
+                                            <ControlBar autoHide={ false } autoHideTime={ 3000 } disableDefaultControls>
+                                                <LockIcon lockScreenFun={ lockScreenFun } lockStatus={ lockStatus } />
+
+                                                <PlaybackRateMenuButton rates={ [ 5, 2, 1, 0.5, 0.1 ] } />
+                                                <PlayToggle order={ 1 } />
+                                                <ReplayControl seconds={ 10 } order={ 2.1 } />
+                                                <ForwardControl seconds={ 10 } order={ 2.2 } />
+                                                <CurrentTimeDisplay order={ 2 } />
+                                                <TimeDivider order={ 2 } />
+                                                <VolumeMenuButton order={ 1 } vertical={ true } />
+                                                <ProgressControl width={ 1 } />
+                                                <FullscreenToggle className="ms-auto" order={ 3.1 } />
+
+                                            </ControlBar> :
+                                            <ControlBar disableDefaultControls={ true } >
+                                                <LockIcon lockScreenFun={ lockScreenFun } />
+
+                                            </ControlBar>
+                                    }
+                                </Player>
+                            </div>
                         </div>
-                    </div >
-                </> )
+                    </>
+                )
             }
         </>
     )
-
 }
 
 export default VideoPlayer

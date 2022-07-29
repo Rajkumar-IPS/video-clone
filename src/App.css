@@ -32,7 +32,6 @@
   width: 1.5em !important;
 }
 
-
 .video-react .video-react-big-play-button.video-react-big-play-button-center {
   margin-top: 0 !important;
   margin-left: 0 !important;
@@ -49,10 +48,6 @@
   height: 100vh;
 }
 
-
-/* .video-react .video-react-control-bar {
-  height: 4em !important;
-} */
 .video-react {
   font-size: 16px !important;
 }
@@ -66,7 +61,7 @@
 }
 
 .video-react-control-bar {
-  bottom: 20px !important;
+  bottom: 10px !important;
 }
 
 .lock-icon {
@@ -103,4 +98,29 @@
   .video-react-control-bar {
     bottom: 10px !important;
   }
+  .card-main-hover .card{
+    width: auto !important;
+   }
 }
+
+.video-player-box {
+  width: 75%;
+}
+
+.main-section {
+  height: 100vh;
+}
+
+.lock-icon {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+.lock-div {
+  width: 3em;
+  height: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
