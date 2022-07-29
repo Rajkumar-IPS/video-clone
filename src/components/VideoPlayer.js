@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom';
 import {
-    Player, ControlBar, ReplayControl, ForwardControl,
-    BigPlayButton, ProgressControl, VolumeMenuButton,
-    PlayToggle, FullscreenToggle, PlaybackRateMenuButton,
-    CurrentTimeDisplay, TimeDivider
+    Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, ProgressControl, VolumeMenuButton, PlayToggle, FullscreenToggle, CurrentTimeDisplay,
+    TimeDivider, DurationDisplay, RemainingTimeDisplay, PlaybackRateMenuButton
 } from 'video-react';
 import "../../node_modules/video-react/dist/video-react.css";
 import LockIcon from './lockIcon';
@@ -70,7 +68,9 @@ const VideoPlayer = () => {
     const filterMovies = movies.videos.filter( val => val.id === id )
 
 
-  
+    // $( 'video' ).fadeOut( '14', function () {
+    //     $( this ).next( 'img' ).show();
+    // } );
     return (
 
         <>
@@ -135,10 +135,11 @@ const VideoPlayer = () => {
                                                 <PlayToggle order={ 1 } />
                                                 <ReplayControl seconds={ 10 } order={ 2.1 } />
                                                 <ForwardControl seconds={ 10 } order={ 2.2 } />
-                                                <CurrentTimeDisplay order={ 2 } />
-                                                <TimeDivider order={ 2 } />
                                                 <VolumeMenuButton order={ 1 } vertical={ true } />
                                                 <ProgressControl width={ 1 } />
+                                                <RemainingTimeDisplay className="me-3" />
+                                                <TimeDivider />
+                                                <DurationDisplay />
                                                 <FullscreenToggle className="ms-auto" order={ 3.1 } />
 
                                             </ControlBar> :
