@@ -91,6 +91,7 @@ const VideoPlayer = () => {
                                     muted={true}
 
                                 >
+
                                     <div className='d-flex hideDiv' style={{ justifyContent: "space-between", height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}>
                                         {lockStatus == true ?
                                             <>
@@ -119,7 +120,8 @@ const VideoPlayer = () => {
                                         }
 
                                     </div>
-                                    {/* <BigPlayButton position="center" /> */}
+                                    <BigPlayButton className="d-none" />
+
                                     {
                                         lockStatus == true ?
                                             <ControlBar autoHide={false} autoHideTime={3000} disableDefaultControls>
