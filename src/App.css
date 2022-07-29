@@ -36,7 +36,6 @@
   margin-top: 0 !important;
   margin-left: 0 !important;
   transform: translate(-50%, -50%);
-
 }
 
 .video-player-box {
@@ -71,6 +70,32 @@
 }
 
 
+
+
+
+
+.video-player-box {
+  width: 75%;
+}
+
+.main-section {
+  height: 100vh;
+}
+
+.lock-icon {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+.lock-div {
+  width: 3em;
+  height: 3em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 @media screen and (min-width: 320px) and (max-width:767px) {
 
   .video-player-box {
@@ -94,26 +119,9 @@
   .card-main-hover .card{
     width: auto !important;
    }
-}
-
-.video-player-box {
-  width: 75%;
-}
-
-.main-section {
-  height: 100vh;
-}
-
-.lock-icon {
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-}
-.lock-div {
-  width: 3em;
-  height: 3em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+   #hideMe img{
+    height: auto;
+    width: 40px !important;
+   }
 }
 

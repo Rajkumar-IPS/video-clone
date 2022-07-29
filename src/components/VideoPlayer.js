@@ -22,7 +22,7 @@ const VideoPlayer = () => {
 
     const [lockStatus, setLockStatus] = useState(true)
     const [player, setPlayer] = useState(true)
-    const [playVideo, setPlayVideo] = useState(false)
+    const [playVideo, setPlayVideo] = useState(true)
     // const [currentTime, setCurrentTime] = useState()
 
 
@@ -67,10 +67,6 @@ const VideoPlayer = () => {
 
     const filterMovies = movies.videos.filter(val => val.id === id)
 
-
-    $('video').fadeOut('14', function () {
-        $(this).next('img').show();
-    });
     return (
 
         <>
@@ -79,7 +75,7 @@ const VideoPlayer = () => {
                 filterMovies.map(val =>
                     <>
                         <div className='d-flex justify-content-center align-items-center main-section'>
-                            <div className='video-player-box' onMouseOver={mouserOver}>
+                            <div className='video-player-box' onMouseOver="document.getElementsByClassName('hideDiv').style.display = 'block'">
                                 <Player
                                     fluid={true}
                                     poster="/assets/poster.png"
