@@ -11,7 +11,6 @@
   color: #61dafb;
 }
 
-/* ----------------------------------------- */
 .video-card {
   transition: transform .3s;
 }
@@ -39,16 +38,19 @@
 }
 
 .video-player-box {
-  width: 75%;
-  /* height: 50%; */
+  width: 60%;
+  border-radius: 20px;
+
 }
 
 .main-section {
   height: 100vh;
+
 }
 
 .video-react {
   font-size: 16px !important;
+  background-color: transparent !important;
 }
 
 .lock-div {
@@ -61,6 +63,13 @@
 
 .video-react-control-bar {
   bottom: 10px !important;
+  z-index: 1111;
+}
+
+.main-section .video-react-video{
+  border-radius: 15px !important;
+  box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.5);
+  border: none;
 }
 
 .lock-icon {
@@ -77,37 +86,11 @@
   background-size: cover !important;
 }
 
-
-
-
-
-.video-player-box {
-  width: 75%;
-}
-
-.main-section {
-  height: 100vh;
-}
-
-.lock-icon {
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-}
-.lock-div {
-  width: 3em;
-  height: 3em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-
 @media screen and (min-width: 320px) and (max-width:767px) {
 
   .video-player-box {
     width: 100%;
-    /* height: 50%; */
+    height: 50%;
   }
 
   .video-react .video-react-control {
@@ -123,12 +106,30 @@
   .video-react-control-bar {
     bottom: 10px !important;
   }
-  .card-main-hover .card{
+
+  .card-main-hover .card {
     width: auto !important;
-   }
-   #hideMe img{
+  }
+
+  #hideMe img {
     height: auto;
     width: 40px !important;
-   }
+  }
+  .main-section {
+    height: 30vh;
+  }
 }
 
+@media screen and (min-width: 720px) and (max-width:1024px) {
+
+  .main-section {
+    height: 50vh;
+  }
+}
+
+@media screen and (min-width: 1025px) and (max-width:1920px) {
+
+  .main-section {
+    height: 100vh;
+  }
+}
