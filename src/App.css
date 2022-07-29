@@ -75,9 +75,13 @@
   height: 30px;
 }
 
-/* .video-react .video-react-control {
-  width: ;
-} */
+.video-react .video-react-control {
+  width: 3em !important;
+}
+
+.video-react .video-react-poster {
+  background-size: cover !important;
+}
 
 @media screen and (min-width: 320px) and (max-width:767px) {
 
@@ -88,7 +92,7 @@
 
   .video-react .video-react-control {
 
-    width: 3em !important;
+    width: 2em !important;
 
   }
 

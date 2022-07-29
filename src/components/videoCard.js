@@ -62,7 +62,7 @@ const VideoCard = () => {
                                         className="hoverrrr video-card"
                                         videoId={ val.id }
                                     >
-                                        <BigPlayButton position="center" />
+                                        <BigPlayButton className="d-none" />
                                         <ControlBar autoHide={ true } autoHideTime={ 3000 } disableDefaultControls>
                                             <PlayToggle order={ 1.1 } />
                                             {/* {/ <LoadProgressBars / > /} */ }

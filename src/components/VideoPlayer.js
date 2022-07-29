@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom';
-import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, ProgressControl, VolumeMenuButton, PlayToggle, FullscreenToggle } from 'video-react';
+import {
+    Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, ProgressControl, VolumeMenuButton, PlayToggle, FullscreenToggle, CurrentTimeDisplay,
+    TimeDivider, DurationDisplay, RemainingTimeDisplay,
+} from 'video-react';
 import "../../node_modules/video-react/dist/video-react.css";
 import LockIcon from './lockIcon';
 import movies from '../movie.json'
@@ -12,7 +15,6 @@ const VideoPlayer = () => {
     // const [ currentTime, setCurrentTime ] = useState()
 
     const { id, currentTime } = useParams()
-
     const lockScreenFun = () => {
         lockStatus == true ?
             setLockStatus( false ) :
@@ -65,10 +67,10 @@ const VideoPlayer = () => {
                                 startTime={ currentTime ? currentTime : 0 }
                                 muted={ true }
                                 autoPlay={ true }
-
+                                pictureInPicture
 
                             >
-                                <div className='d-flex' style={ { justifyContent: "space-between", height: "92%" } } >
+                                <div className='d-flex' style={ { justifyContent: "space-between", height: "92%", width: "100%", position: "absolute", top: 0, left: 0 } } >
                                     <div className='' style={ { zIndex: 999, cursor: "pointer", width: "25%" } } onDoubleClick={ leftDoubleClick }></div>
                                     <div className='' style={ { zIndex: 999, cursor: "pointer", width: "25%" } } onClick={ rightDoubleClick }></div>
                                 </div>
@@ -84,6 +86,9 @@ const VideoPlayer = () => {
                                             <ForwardControl seconds={ 10 } order={ 2.2 } />
                                             <VolumeMenuButton order={ 1 } vertical={ true } />
                                             <ProgressControl width={ 1 } />
+                                            <RemainingTimeDisplay className="me-3" />
+                                            <TimeDivider />
+                                            <DurationDisplay />
                                             <FullscreenToggle className="ms-auto" order={ 3.1 } />
 
                                         </ControlBar> :
