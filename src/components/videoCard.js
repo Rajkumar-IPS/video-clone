@@ -40,20 +40,14 @@ const VideoCard = () => {
         setRouterState({
             currentTime: $(`#${e.target.id}`).get(0).currentTime,
             src: e.target.src
-
         })
 
-        navigate('/videoplayer/ ', {
-            state: {
-                currentTime: $(`#${e.target.id}`).get(0).currentTime,
-                src: e.target.src
-            }
-        })
+        navigate(`/videoplayer/${e.target.id}/${$(`#${e.target.id}`).get(0).currentTime}  `)
     }
 
     return (
         <>
-            < div className="container" >
+            <div className="container" >
                 <div className='row mt-5' >
                     {videoArray.videos.map((val) => {
                         return (

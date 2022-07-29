@@ -8,7 +8,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route exact path='/' element={<VideoCard />} />
-          <Route exact path='/videoplayer/' element={<VideoPlayer />} />
+          <Route exact path='/videoplayer/:id/:currentTime' element={<VideoPlayer />} />
         </Routes>
       </div>
     </BrowserRouter>

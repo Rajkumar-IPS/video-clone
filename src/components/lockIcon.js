@@ -7,10 +7,12 @@ const LockIcon = (props) => {
 
     return (
         <>
-            {props.lockStatus == true ?
+            <div className='lock-div'>
+                {props.lockStatus == true ?
 
-                <img src={lock} style={{ cursor: "pointer", width: "25px", height: "25px" }} onClick={props.lockScreenFun} />
-                : <img src={unlock} style={{ cursor: "pointer", width: "25px", height: "25px" }} onClick={props.lockScreenFun} />}
+                    <img src={lock} style={{ cursor: "pointer", width: "25px", height: "25px" }} onClick={props.lockScreenFun} />
+                    : <img src={unlock} style={{ cursor: "pointer", width: "25px", height: "25px" }} onClick={props.lockScreenFun} />}
+            </div>
         </>
     )
 }
