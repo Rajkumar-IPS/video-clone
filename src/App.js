@@ -10,6 +10,7 @@ function App() {
           <Route exact path='/' element={<VideoCard />} />
           <Route exact path='/videoplayer/:id/:currentTime' element={<VideoPlayer />} />
           <Route exact path='/videoplayer/:id' element={<VideoPlayer />} />
+          <Route exact path='/videoplayer/:id/:sources' element={<VideoPlayer />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -27,8 +27,11 @@ const VideoPlayer = () => {
     const [player, setPlayer] = useState(true)
     const [playVideo, setPlayVideo] = useState(true)
     const navigate = useNavigate();
-    const [resolutionSrc,setResolutionSrc] = useState()
+    const [resolutionSrc, setResolutionSrc] = useState()
     // const [currentTime, setCurrentTime] = useState()
+
+
+    console.log(resolutionSrc);
 
 
 
@@ -111,14 +114,15 @@ const VideoPlayer = () => {
 
     const onChangeResolution = (source) => {
 
-        const filterMoviesEx = movies.videos.filter(val => val.id === id).map((val) => val.resolutions.find((v) => v.qlt == source.target.value)).map((x) => x.sources)
+        const filterMoviesExl = movies.videos.filter(val => val.id === id).map((val) => val.resolutions.find((v) => v.qlt == source.target.value)).map((x) => x.sources)
+        const filterMoviesExQlt = movies.videos.filter(val => val.id === id).map((val) => val.resolutions.find((v) => v.qlt == source.target.value)).map((x) => x.qlt)
+        const filterMoviesEx = movies.videos.filter(val => val.id === id)
 
-        setResolutionSrc(filterMoviesEx[0])
 
-        console.log(source.target.value);
+        setResolutionSrc(filterMoviesExl[0])
 
-        // console.log($('video').get(0).currentTime);
-        // navigate(`/videoplayer/${e.target.id}/${$(`#${'.video'}`).get(0).currentTime}  `)
+
+        navigate(`/videoplayer/${filterMoviesEx[0]?.id}/${filterMoviesExQlt[0]}`)
     }
 
 
@@ -137,7 +141,7 @@ const VideoPlayer = () => {
                                 <Player
                                     fluid={true}
                                     poster="/assets/poster.png"
-                                    src={val.sources}
+                                    src={resolutionSrc ? resolutionSrc : val.sources}
                                     preload='none'
                                     className="hoverrrr"
                                     // width={900}
@@ -145,7 +149,7 @@ const VideoPlayer = () => {
                                     ref={player => {
                                         setPlayer(player)
                                     }}
-                                    startTime={currentTime}
+                                    startTime={resolutionSrc ? $('video').get(0).currentTime : currentTime}
 
                                     autoPlay={true}
                                     muted={true}
