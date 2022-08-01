@@ -4,6 +4,8 @@ import lock from "../icons8-gear-90.png"
 
 const Setting = (props) => {
 
+    // console.log('props', props.onChangeResolution)
+
     return (
         <>
             {/* <div className="dropdown">
@@ -22,11 +24,11 @@ const Setting = (props) => {
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">720</a></li>
-                    <li><a class="dropdown-item" href="#">480</a></li>
-                    <li><a class="dropdown-item" href="#">360</a></li>
-                </ul>
-            </div>
+                    <li class="dropdown-item" value={"720px"} onClick={e => props.onChangeResolution(e)}>720</li>
+                    <li class="dropdown-item" value={"480px"} onClick={e => props.onChangeResolution(e)}>480</li>
+                    <li class="dropdown-item" value={"360px"} onClick={e => props.onChangeResolution(e)}>360</li>
+                </ul >
+            </div >
         </>
     )
 }

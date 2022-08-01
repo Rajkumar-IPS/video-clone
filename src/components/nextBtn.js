@@ -4,7 +4,7 @@ import lock from "../icons8-next-64.png"
 
 const NextBtn = (props) => {
 
-    console.log(props.lastIndex);
+    // console.log(props.lastIndex);
     return (
         <>
             {props.lastIndex ? "" :

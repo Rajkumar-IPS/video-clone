@@ -27,6 +27,7 @@ const VideoPlayer = () => {
     const [player, setPlayer] = useState(true)
     const [playVideo, setPlayVideo] = useState(true)
     const navigate = useNavigate();
+    const [resolutionSrc,setResolutionSrc] = useState()
     // const [currentTime, setCurrentTime] = useState()
 
 
@@ -73,7 +74,7 @@ const VideoPlayer = () => {
 
     const lastIdFilter = movies.videos.slice(-1).pop(1)
 
-    console.log(lastIdFilter.id);
+    // console.log( lastIdFilter.id );
 
 
     const nextVideoBtn = (e) => {
@@ -91,6 +92,35 @@ const VideoPlayer = () => {
     const backToHome = () => {
         navigate(`/`)
     }
+
+
+    var i = null;
+    $(".hideMe").hide();
+
+
+
+    $("video").on("mousemove", () => {
+        clearTimeout(i);
+        $(".hideMe").show();
+
+        setTimeout(() => {
+            $(".hideMe").hide();
+        }, 4000)
+    })
+
+
+    const onChangeResolution = (source) => {
+
+        const filterMoviesEx = movies.videos.filter(val => val.id === id).map((val) => val.resolutions.find((v) => v.qlt == source.target.value)).map((x) => x.sources)
+
+        setResolutionSrc(filterMoviesEx[0])
+
+        console.log(source.target.value);
+
+        // console.log($('video').get(0).currentTime);
+        // navigate(`/videoplayer/${e.target.id}/${$(`#${'.video'}`).get(0).currentTime}  `)
+    }
+
 
     return (
 
@@ -125,24 +155,24 @@ const VideoPlayer = () => {
                                         {lockStatus == true ?
                                             <>
 
-                                                <div className='' style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} id="hideMe" onDoubleClick={leftDoubleClick}>
+                                                <div style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} className="hideMe" onDoubleClick={leftDoubleClick}>
                                                     <img src={backward} onDoubleClick={leftDoubleClick} style={{ width: "60px" }} />
                                                 </div >
 
                                                 {playVideo == false ?
                                                     (
-                                                        <div className='' style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} id="hideMe" onClick={playClick}>
+                                                        <div style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} className="hideMe" onClick={playClick}>
                                                             <img src={playIcon} onClick={playClick} style={{ width: "60px" }} />
 
 
                                                         </div>) :
-                                                    (<div className='' style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} id="hideMe" onClick={stopClick}>
+                                                    (<div style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} className="hideMe" onClick={stopClick}>
                                                         <img src={pauseIcon} onClick={stopClick} style={{ width: "60px" }} />
 
                                                     </div>
                                                     )
                                                 }
-                                                <div className='' style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} id="hideMe" onDoubleClick={rightDoubleClick}>
+                                                <div style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} className="hideMe" onDoubleClick={rightDoubleClick}>
                                                     <img src={forward} onDoubleClick={rightDoubleClick} style={{ width: "60px" }} />
 
                                                 </div>
@@ -170,7 +200,7 @@ const VideoPlayer = () => {
                                                 <TimeDivider />
                                                 <DurationDisplay className="" />
                                                 <VolumeMenuButton order={2.1} vertical={true} />
-                                                <Setting />
+                                                <Setting onChangeResolution={onChangeResolution} />
 
                                                 <FullscreenToggle className="ms-auto" order={3.1} />
 
