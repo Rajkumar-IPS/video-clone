@@ -13,14 +13,43 @@
 
 .video-card {
   transition: transform .3s;
+  border: none;
 }
 
-.video-card:hover {
-  transform: scale(1.2);
-  z-index: 1;
-  cursor: pointer;
+  .video-card:hover {
+    transform: scale(1.2);
+    z-index: 1;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, .125);
+  }
+
+.description-section {
+  display: none;
 }
 
+.video-card:hover 
+.description-section {
+  padding:15px 10px;
+  display: flex;
+
+
+}
+
+.video-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.video-desc {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.video-sub-thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
 
 .video-react .video-react-control-bar {
   background-color: transparent !important;
@@ -66,7 +95,7 @@
   z-index: 1111;
 }
 
-.main-section .video-react-video{
+.main-section .video-react-video {
   border-radius: 15px !important;
   box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.5);
   border: none;
@@ -115,6 +144,7 @@
     height: auto;
     width: 40px !important;
   }
+
   .main-section {
     height: 30vh;
   }
