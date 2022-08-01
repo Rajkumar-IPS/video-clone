@@ -123,7 +123,8 @@ const VideoPlayer = () => {
                                         }
 
                                     </div>
-                                    {/* <BigPlayButton position="center" /> */ }
+                                    <BigPlayButton className="d-none" />
+
                                     {
                                         lockStatus == true ?
                                             <ControlBar autoHide={ false } autoHideTime={ 3000 } disableDefaultControls>
