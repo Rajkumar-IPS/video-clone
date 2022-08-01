@@ -154,12 +154,13 @@ const VideoPlayer = () => {
 
                                                 {/* <ReplayControl seconds={10} order={2.1} /> */}
                                                 {/* <ForwardControl seconds={10} order={2.2} /> */}
-                                                <VolumeMenuButton order={1} vertical={true} />
+                                                
                                                 <ProgressControl />
                                                 <RemainingTimeDisplay className="me-3" />
                                                 <TimeDivider />
                                                 <DurationDisplay className="" />
-                                                <FullscreenToggle className="ms-auto" order={3.1} />
+                                                <VolumeMenuButton order={ 2.1 } vertical={ true } />
+                                                <FullscreenToggle className="ms-auto" order={ 3.1 } />
 
                                             </ControlBar> :
                                             <ControlBar disableDefaultControls={true} >
