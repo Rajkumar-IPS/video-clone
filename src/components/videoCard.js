@@ -31,10 +31,12 @@ const VideoCard = () => {
     }
     const mouseLeaveFunction = ( e ) => {
         $( `#${ e }` ).prop( 'muted', false ).get( 0 ).pause()
+        $( `#${ e }` ).get( 0 ).load()
         // console.log( $( `#${ e }` ) );
     }
     const mouseBlurFunction = ( e ) => {
         $( `#${ e }` ).prop( 'muted', false ).get( 0 ).pause()
+        $( `#${ e }` ).get( 0 ).load()
     }
 
     const details = ( e ) => {

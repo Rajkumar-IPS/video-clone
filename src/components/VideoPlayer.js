@@ -128,16 +128,16 @@ const VideoPlayer = () => {
 
                                     {
                                         lockStatus == true ?
-                                            <ControlBar autoHide={false} autoHideTime={3000} disableDefaultControls>
-                                                <LockIcon lockScreenFun={lockScreenFun} lockStatus={lockStatus} />
-                                                <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
+                                            <ControlBar autoHide={ false } autoHideTime={ 3000 } disableDefaultControls>
+                                                <LockIcon lockScreenFun={ lockScreenFun } lockStatus={ lockStatus } />
+                                                <PlaybackRateMenuButton rates={ [ 5, 2, 1, 0.5, 0.1 ] } />
                                                 <PrevBtn />
-                                                <PlayToggle order={1} />
+                                                <PlayToggle order={ 1 } />
                                                 <NextBtn />
 
-                                                {/* <ReplayControl seconds={10} order={2.1} /> */}
-                                                {/* <ForwardControl seconds={10} order={2.2} /> */}
-                                                
+                                                {/* <ReplayControl seconds={10} order={2.1} /> */ }
+                                                {/* <ForwardControl seconds={10} order={2.2} /> */ }
+
                                                 <ProgressControl />
                                                 <RemainingTimeDisplay className="me-3" />
                                                 <TimeDivider />
