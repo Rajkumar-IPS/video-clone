@@ -14,6 +14,9 @@ import movies from '../movie.json'
 import $ from "jquery"
 import NextBtn from './nextBtn';
 import PrevBtn from './prevBtn';
+import home from "../icons8-home-120.png"
+import Setting from './setting';
+
 
 
 const VideoPlayer = () => {
@@ -85,6 +88,9 @@ const VideoPlayer = () => {
         navigate(`/videoplayer/${parseInt(filterMoviesEx[0].id) - 1}`)
 
     }
+    const backToHome = () => {
+        navigate(`/`)
+    }
 
     return (
 
@@ -93,6 +99,9 @@ const VideoPlayer = () => {
             {
                 filterMovies.map(val =>
                     <>
+                        <a className='btn' onClick={backToHome}>
+                            <img src={home} style={{ cursor: "pointer", width: "40px", height: "40px" }} />
+                        </a>
                         <div className='d-flex justify-content-center align-items-center main-section'>
                             <div className='video-player-box' onMouseOver={mouserOver}>
                                 <Player
@@ -148,19 +157,22 @@ const VideoPlayer = () => {
                                             <ControlBar autoHide={false} autoHideTime={3000} disableDefaultControls>
                                                 <LockIcon lockScreenFun={lockScreenFun} lockStatus={lockStatus} />
                                                 <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
+
                                                 <PrevBtn onClick={prevVideoBtn} firstIndex={movies.videos[0].id == id} />
                                                 <PlayToggle order={1} />
                                                 <NextBtn onClick={nextVideoBtn} lastIndex={lastIdFilter.id == id} />
 
-                                                {/* <ReplayControl seconds={10} order={2.1} /> */ }
-                                                {/* <ForwardControl seconds={10} order={2.2} /> */ }
+                                                {/* <ReplayControl seconds={10} order={2.1} /> */}
+                                                {/* <ForwardControl seconds={10} order={2.2} /> */}
 
                                                 <ProgressControl />
                                                 <RemainingTimeDisplay className="me-3" />
                                                 <TimeDivider />
                                                 <DurationDisplay className="" />
-                                                <VolumeMenuButton order={ 2.1 } vertical={ true } />
-                                                <FullscreenToggle className="ms-auto" order={ 3.1 } />
+                                                <VolumeMenuButton order={2.1} vertical={true} />
+                                                <Setting />
+
+                                                <FullscreenToggle className="ms-auto" order={3.1} />
 
                                             </ControlBar> :
                                             <ControlBar disableDefaultControls={true} >
