@@ -24,9 +24,9 @@ const Setting = (props) => {
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li class="dropdown-item" value={"720px"} onClick={e => props.onChangeResolution(e)}>720</li>
-                    <li class="dropdown-item" value={"480px"} onClick={e => props.onChangeResolution(e)}>480</li>
-                    <li class="dropdown-item" value={"360px"} onClick={e => props.onChangeResolution(e)}>360</li>
+                    <li class="dropdown-item" value={"720"} onClick={e => props.onChangeResolution(e)}>720</li>
+                    <li class="dropdown-item" value={"480"} onClick={e => props.onChangeResolution(e)}>480</li>
+                    <li class="dropdown-item" value={"360"} onClick={e => props.onChangeResolution(e)}>360</li>
                 </ul >
             </div >
         </>

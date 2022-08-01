@@ -82,12 +82,14 @@ const VideoPlayer = () => {
 
     const nextVideoBtn = (e) => {
         const filterMoviesEx = movies.videos.filter(val => val.id === id)
+        setResolutionSrc(null)
 
         navigate(`/videoplayer/${parseInt(filterMoviesEx[0].id) + 1}`)
 
     }
     const prevVideoBtn = (e) => {
         const filterMoviesEx = movies.videos.filter(val => val.id === id)
+        setResolutionSrc(null)
 
         navigate(`/videoplayer/${parseInt(filterMoviesEx[0].id) - 1}`)
 
@@ -114,15 +116,16 @@ const VideoPlayer = () => {
 
     const onChangeResolution = (source) => {
 
-        const filterMoviesExl = movies.videos.filter(val => val.id === id).map((val) => val.resolutions.find((v) => v.qlt == source.target.value)).map((x) => x.sources)
-        const filterMoviesExQlt = movies.videos.filter(val => val.id === id).map((val) => val.resolutions.find((v) => v.qlt == source.target.value)).map((x) => x.qlt)
+        const filterMoviesExl = movies.videos.filter(val => val.id === id).map((val) => val.resolutions.find((v) => v.qlt == source.target.value)).map((x) => x?.sources)
+        const filterMoviesExQlt = movies.videos.filter(val => val.id === id).map((val) => val.resolutions.find((v) => v.qlt == source.target.value)).map((x) => x?.qlt)
         const filterMoviesEx = movies.videos.filter(val => val.id === id)
 
 
-        setResolutionSrc(filterMoviesExl[0])
+        console.log(movies.videos.filter(val => val.id === id)[0]);
+        setResolutionSrc(source.target.value == 720 ? movies.videos.filter(val => val.id === id)[0].sources : filterMoviesExl[0])
 
 
-        navigate(`/videoplayer/${filterMoviesEx[0]?.id}/${filterMoviesExQlt[0]}`)
+        navigate(`/videoplayer/${filterMoviesEx[0]?.id}/${filterMoviesExQlt[0] == undefined ? 720 : filterMoviesExQlt[0]}`)
     }
 
 
