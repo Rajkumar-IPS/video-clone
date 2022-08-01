@@ -9,7 +9,7 @@ const NextBtn = (props) => {
         <>
             {props.lastIndex ? "" :
                 <div className='lock-div'>
-                    <img src={lock} style={{ cursor: "pointer", width: "20px", height: "20px" }} onClick={props.onClick} />
+                    <img src={ lock } style={ { cursor: "pointer", width: "20px", height: "20px" } } onClick={ props.onClick } data-bs-toggle="tooltip" title="play next video" />
                 </div>
             }
         </>
