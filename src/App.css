@@ -16,20 +16,19 @@
   border: none;
 }
 
-  .video-card:hover {
-    transform: scale(1.2);
-    z-index: 1;
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, .125);
-  }
+.video-card:hover {
+  transform: scale(1.2);
+  z-index: 1;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, .125);
+}
 
 .description-section {
   display: none;
 }
 
-.video-card:hover 
-.description-section {
-  padding:15px 10px;
+.video-card:hover .description-section {
+  padding: 15px 10px;
   display: flex;
 
 
@@ -115,8 +114,12 @@
   background-size: cover !important;
 }
 
-.video-react-poster{
+.video-react-poster {
   border-radius: 10px;
+}
+
+.hideMe {
+  transition: 0.3s;
 }
 
 @media screen and (min-width: 320px) and (max-width:767px) {
