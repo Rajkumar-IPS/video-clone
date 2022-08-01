@@ -46,7 +46,7 @@ const VideoCard = () => {
             src: e.target.src
         })
 
-        navigate(`/videoplayer/${e.target.id}/${$(`#${e.target.id}`).get(0).currentTime}  `)
+        navigate(`/videoplayer/${e.target.id}/${$(`#${e.target.id}`).get(0).currentTime}/720  `)
     }
 
     return (
