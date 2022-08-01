@@ -12,6 +12,8 @@ import playIcon from '../icons8-play-button-circled-90.png';
 import pauseIcon from '../icons8-pause-90.png';
 import movies from '../movie.json'
 import $ from "jquery"
+import NextBtn from './nextBtn';
+import PrevBtn from './prevBtn';
 
 
 const VideoPlayer = () => {
@@ -95,7 +97,6 @@ const VideoPlayer = () => {
                                     <div className='d-flex hideDiv' style={{ justifyContent: "space-between", height: "100%", width: "100%", position: "absolute", top: 0, left: 0 }}>
                                         {lockStatus == true ?
                                             <>
-
                                                 <div className='' style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} id="hideMe" onDoubleClick={leftDoubleClick}>
                                                     <img src={backward} onDoubleClick={leftDoubleClick} style={{ width: "60px" }} />
                                                 </div >
@@ -103,22 +104,18 @@ const VideoPlayer = () => {
                                                     (
                                                         <div className='' style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} id="hideMe" onClick={playClick}>
                                                             <img src={playIcon} onClick={playClick} style={{ width: "60px" }} />
-
                                                         </div>) :
                                                     (<div className='' style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} id="hideMe" onClick={stopClick}>
                                                         <img src={pauseIcon} onClick={stopClick} style={{ width: "60px" }} />
-
                                                     </div>
                                                     )
                                                 }
                                                 <div className='' style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} id="hideMe" onDoubleClick={rightDoubleClick}>
                                                     <img src={forward} onDoubleClick={rightDoubleClick} style={{ width: "60px" }} />
-
                                                 </div>
                                             </>
                                             : ""
                                         }
-
                                     </div>
                                     <BigPlayButton className="d-none" />
 
@@ -126,13 +123,15 @@ const VideoPlayer = () => {
                                         lockStatus == true ?
                                             <ControlBar autoHide={false} autoHideTime={3000} disableDefaultControls>
                                                 <LockIcon lockScreenFun={lockScreenFun} lockStatus={lockStatus} />
-
                                                 <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
+                                                <PrevBtn />
                                                 <PlayToggle order={1} />
+                                                <NextBtn />
+
                                                 {/* <ReplayControl seconds={10} order={2.1} /> */}
                                                 {/* <ForwardControl seconds={10} order={2.2} /> */}
                                                 <VolumeMenuButton order={1} vertical={true} />
-                                                <ProgressControl width={1} />
+                                                <ProgressControl />
                                                 <RemainingTimeDisplay className="me-3" />
                                                 <TimeDivider />
                                                 <DurationDisplay className="" />
