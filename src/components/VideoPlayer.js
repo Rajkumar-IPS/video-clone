@@ -29,7 +29,7 @@ const VideoPlayer = () => {
     const navigate = useNavigate();
     const [ resolutionSrc, setResolutionSrc ] = useState()
     const [ updateStartData, setUpdateStartData ] = useState( false )
-
+    const [timeAfterAds,setTimeAfterAds] = useState()
 
 
     // console.log( resolutionSrc );
@@ -173,7 +173,8 @@ const VideoPlayer = () => {
     const adsOver = ( a ) => {
         console.log( "adsOver" )
         player.pause()
-        window.sessionStorage.setItem( "adsStartTime", a + 1 )
+        // window.sessionStorage.setItem( "adsStartTime", a + 1 )
+setTimeAfterAds(a+1)
         setUpdateStartData( true )
         player.load()
 
@@ -183,13 +184,11 @@ const VideoPlayer = () => {
 
         if ( skipIntroStatus === "true" )
         {
-            console.log( "calllll" )
+            // console.log( "calllll" )
             if ( updateStartData === true )
             {
                 console.log( "true status" );
                 setUpdateStartData( false )
-                window.sessionStorage.removeItem( "adsStartTime" )
-
                 player.load()
             }
 
@@ -198,6 +197,7 @@ const VideoPlayer = () => {
             skipIntroDuction()
         }
         console.log( "video ended" )
+
 
     } )
 
@@ -232,7 +232,7 @@ const VideoPlayer = () => {
                                     ref={ player => {
                                         setPlayer( player )
                                     } }
-                                    startTime={ skipIntroStatus === "false" ? 0 : updateStartData === false ? window.sessionStorage.getItem( "adsStartTime" ) : resolutionSrc ? $( 'video' ).get( 0 ).currentTime : currentTime }
+                                    startTime={ skipIntroStatus === "false" ? 0 : updateStartData === false ? timeAfterAds : resolutionSrc ? $( 'video' ).get( 0 ).currentTime : currentTime }
 
                                     autoPlay={ true }
                                     muted={ true }

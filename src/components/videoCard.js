@@ -51,6 +51,7 @@ const VideoCard = () => {
         //     src: e.target.src
         // } )
         window.sessionStorage.setItem( "item_key", false )
+        window.sessionStorage.removeItem( "adsStartTime" )
         navigate( `/videoplayer/${ e.target.id }/${ $( `#${ e.target.id }` ).get( 0 ).currentTime }/720  ` )
 
     }
