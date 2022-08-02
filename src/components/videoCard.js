@@ -26,25 +26,58 @@ const VideoCard = () => {
     const mouseEnterFunction = ( e ) => {
 
 
-        if (
-            $( `#${ e }` ).prop( 'muted', true ).get( 0 ).play()
-        )
-        {
-            setState( 1 )
-        }
+
+        $( `#${ e }` ).prop( 'muted', true ).get( 0 ).play()
+
+
+
     }
+    // getOS = () => {
+
+    //     return os;
+    // };
+
     const mouseLeaveFunction = ( e ) => {
         $( `#${ e }` ).prop( 'muted', false ).get( 0 ).pause()
         $( `#${ e }` ).get( 0 ).load()
-        // console.log( $( `#${ e }` ) );
+        //     // console.log( $( `#${ e }` ) );
+        //     console.log( "leave" )
     }
     const mouseBlurFunction = ( e ) => {
-        $( `#${ e }` ).prop( 'muted', false ).get( 0 ).pause()
-        $( `#${ e }` ).get( 0 ).load()
+        var userAgent = window.navigator.userAgent,
+            platform = window.navigator.platform,
+            macosPlatforms = [ "Macintosh", "MacIntel", "MacPPC", "Mac68K" ],
+            windowsPlatforms = [ "Win32", "Win64", "Windows", "WinCE" ],
+            iosPlatforms = [ "iPhone", "iPad", "iPod" ],
+            os = null;
+
+        if ( macosPlatforms.indexOf( platform ) !== -1 )
+        {
+            os = "Mac OS";
+        } else if ( iosPlatforms.indexOf( platform ) !== -1 )
+        {
+            os = "iOS";
+        } else if ( windowsPlatforms.indexOf( platform ) !== -1 )
+        {
+            os = "Windows";
+        } else if ( /Android/.test( userAgent ) )
+        {
+            os = "Android";
+        } else if ( !os && /Linux/.test( platform ) )
+        {
+            os = "Linux";
+        }
+
+        if ( os == "Android" )
+        {
+            $( `#${ e }` ).prop( 'muted', false ).get( 0 ).pause()
+            $( `#${ e }` ).get( 0 ).load()
+        }
+
     }
 
     const details = ( e ) => {
-        // console.log( e.target.src );
+        console.log( "details--------------------" );
 
         // setRouterState( {
         //     currentTime: $( `#${ e.target.id }` ).get( 0 ).currentTime,
