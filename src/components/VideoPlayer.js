@@ -141,6 +141,8 @@ const VideoPlayer = () => {
         }
     } )
 
+
+    // $( "video" ).on( "playing", () => console.log( "first" ) )
     const skipIntroDuction = () => {
         window.sessionStorage.setItem( "item_key", "true" )
         setSkipIntroStatus( "true" )
@@ -151,6 +153,7 @@ const VideoPlayer = () => {
     // }, [ sessionStorage.getItem( "item_key" ) ] )
 
     // console.log( 'skipIntroStatus', skipIntroStatus )
+    console.log( 'resolutionSrc', resolutionSrc )
     return (
 
         <>
@@ -163,9 +166,7 @@ const VideoPlayer = () => {
                         </a>
                         <div className='d-flex justify-content-center align-items-center main-section'>
                             <div className='video-player-box' onMouseOver={ mouserOver }>
-                                {
-                                    console.log( 'sessionStorage.getItem( "item_key" ) === "false" ? val.introduction : resolutionSrc ? resolutionSrc : val.sources', sessionStorage.getItem( "item_key" ) === "false" ? val.introduction : resolutionSrc ? resolutionSrc : val.sources )
-                                }
+                            
                                 <Player
                                     fluid={ true }
                                     poster="/assets/poster.png"
@@ -220,7 +221,7 @@ const VideoPlayer = () => {
                                     {
                                         sessionStorage.getItem( "item_key" ) === "false" ?
                                             <ControlBar disableDefaultControls={ true } >
-                                                {/* <ProgressControl /> */}
+                                                {/* <ProgressControl /> */ }
                                                 <button className='btn btn-outline-primary ms-auto' onClick={ () => {
                                                     skipIntroDuction()
                                                 } }>Skip Introduction</button>
