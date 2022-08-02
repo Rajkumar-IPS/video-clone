@@ -24,11 +24,12 @@ const VideoPlayer = () => {
     const { id, currentTime } = useParams()
 
     const [ lockStatus, setLockStatus ] = useState( true )
-    const [ player, setPlayer ] = useState( true )
+    const [ player, setPlayer ] = useState()
     const [ playVideo, setPlayVideo ] = useState( true )
     const navigate = useNavigate();
     const [ resolutionSrc, setResolutionSrc ] = useState()
-    // const [currentTime, setCurrentTime] = useState()
+    const [ updateStartData, setUpdateStartData ] = useState( false )
+
 
 
     // console.log( resolutionSrc );
@@ -67,9 +68,6 @@ const VideoPlayer = () => {
         setPlayVideo( false )
     }
 
-    const playRate = () => {
-        // console.log(player.duration());
-    }
 
     const mouserOver = () => {
 
@@ -79,10 +77,10 @@ const VideoPlayer = () => {
 
     const lastIdFilter = movies.videos.slice( -1 ).pop( 1 )
 
-    // console.log( lastIdFilter.id );
 
 
     const nextVideoBtn = ( e ) => {
+        window.sessionStorage.removeItem( "adsStartTime" )
         const filterMoviesEx = movies.videos.filter( val => val.id === id )
         setResolutionSrc( null )
 
@@ -129,16 +127,78 @@ const VideoPlayer = () => {
 
         navigate( `/videoplayer/${ filterMoviesEx[ 0 ]?.id }/${ $( 'video' ).get( 0 ).currentTime }/${ filterMoviesExQlt[ 0 ] == undefined ? 720 : filterMoviesExQlt[ 0 ] }` )
     }
+
     const [ skipIntroStatus, setSkipIntroStatus ] = useState( sessionStorage.getItem( "item_key" ) )
+
+
+    console.log( "resolutionSrc", resolutionSrc );
 
     // console.log('$(video)', $('video').on(''))
 
 
+
+
+    // console.log('updateStartData', updateStartData)
+    // setTimeout((e) => {
+    //     setUpdateStartData(true);
+    //     window.sessionStorage.setItem("adsStartTime", 10)
+    // }, 10000)
+
+    console.log( 'updateStartData', updateStartData )
+
+
+    $( "video" ).on( "timeupdate", () => {
+        // console.log("first", parseInt($("video").get(0).currentTime) == 10)
+
+        if ( parseInt( $( "video" ).get( 0 ).currentTime ) == 20 )
+        {
+
+            adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) )
+
+        } else if ( parseInt( $( "video" ).get( 0 ).currentTime ) == 40 )
+        {
+
+            adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) )
+
+        } else if ( parseInt( $( "video" ).get( 0 ).currentTime ) == 60 )
+        {
+
+            adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) )
+
+        }
+
+
+    } )
+
+    const adsOver = ( a ) => {
+        console.log( "adsOver" )
+        player.pause()
+        window.sessionStorage.setItem( "adsStartTime", a + 1 )
+        setUpdateStartData( true )
+        player.load()
+
+    }
+
     $( "video" ).on( 'ended', () => {
-        if ( skipIntroStatus === "false" )
+
+        if ( skipIntroStatus === "true" )
+        {
+            console.log( "calllll" )
+            if ( updateStartData === true )
+            {
+                console.log( "true status" );
+                setUpdateStartData( false )
+                window.sessionStorage.removeItem( "adsStartTime" )
+
+                player.load()
+            }
+
+        } else
         {
             skipIntroDuction()
         }
+        console.log( "video ended" )
+
     } )
 
 
@@ -148,16 +208,10 @@ const VideoPlayer = () => {
         setSkipIntroStatus( "true" )
         player.load()
     }
-    // useEffect( () => {
-    //     setSkipIntroStatus( sessionStorage.getItem( "item_key" ) )
-    // }, [ sessionStorage.getItem( "item_key" ) ] )
 
-    // console.log( 'skipIntroStatus', skipIntroStatus )
-    console.log( 'resolutionSrc', resolutionSrc )
     return (
 
         <>
-
             {
                 filterMovies.map( val =>
                     <>
@@ -166,11 +220,11 @@ const VideoPlayer = () => {
                         </a>
                         <div className='d-flex justify-content-center align-items-center main-section'>
                             <div className='video-player-box' onMouseOver={ mouserOver }>
-                            
+
                                 <Player
                                     fluid={ true }
                                     poster="/assets/poster.png"
-                                    src={ skipIntroStatus === "false" ? val.introduction : resolutionSrc ? resolutionSrc : val.sources }
+                                    src={ skipIntroStatus === "false" ? val.introduction : updateStartData === true ? movies.ads : resolutionSrc ? resolutionSrc : val.sources }
                                     preload='none'
                                     className="hoverrrr"
                                     // width={900}
@@ -178,7 +232,7 @@ const VideoPlayer = () => {
                                     ref={ player => {
                                         setPlayer( player )
                                     } }
-                                    startTime={ skipIntroStatus === "false" ? 0 : resolutionSrc ? $( 'video' ).get( 0 ).currentTime : currentTime }
+                                    startTime={ skipIntroStatus === "false" ? 0 : updateStartData === false ? window.sessionStorage.getItem( "adsStartTime" ) : resolutionSrc ? $( 'video' ).get( 0 ).currentTime : currentTime }
 
                                     autoPlay={ true }
                                     muted={ true }

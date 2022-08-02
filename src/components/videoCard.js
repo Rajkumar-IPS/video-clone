@@ -15,6 +15,10 @@ const VideoCard = () => {
     } )
 
 
+
+    // console.log(window.sessionStorage.getItem("ads"));
+
+
     // console.log( state );
     const [ routerState, setRouterState ] = useState( {} )
 
