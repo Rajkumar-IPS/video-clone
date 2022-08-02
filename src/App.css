@@ -50,7 +50,12 @@
   border-radius: 50%;
 }
 
+
 .video-react .video-react-control-bar {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+.video-card .video-react .video-react-control-bar {
   background-color: transparent !important;
 }
 
@@ -90,7 +95,6 @@
 }
 
 .video-react-control-bar {
-  bottom: 10px !important;
   z-index: 1111;
 }
 
@@ -147,7 +151,7 @@
     width: auto !important;
   }
 
-  #hideMe img {
+  .hideMe img {
     height: auto;
     width: 40px !important;
   }

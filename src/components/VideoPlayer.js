@@ -32,6 +32,7 @@ const VideoPlayer = () => {
 
 
 
+    // console.log( resolutionSrc );
 
 
 
@@ -42,14 +43,14 @@ const VideoPlayer = () => {
     }
 
     const leftDoubleClick = () => {
-        console.log("left");
+        // console.log( "left" );
         if (lockStatus == true) {
             player.replay(10)
         }
     }
 
     const rightDoubleClick = () => {
-        console.log("right");
+        // console.log( "right" );
         if (lockStatus == true) {
             player.forward(10)
         }
@@ -77,6 +78,7 @@ const VideoPlayer = () => {
 
 
     const nextVideoBtn = (e) => {
+        window.sessionStorage.removeItem("adsStartTime")
         const filterMoviesEx = movies.videos.filter(val => val.id === id)
         setResolutionSrc(null)
 
@@ -117,22 +119,83 @@ const VideoPlayer = () => {
         const filterMoviesEx = movies.videos.filter(val => val.id === id)
 
 
-        console.log(movies.videos.filter(val => val.id === id)[0]);
+        // console.log( movies.videos.filter( val => val.id === id )[ 0 ] );
         setResolutionSrc(source.target.value == 720 ? movies.videos.filter(val => val.id === id)[0].sources : filterMoviesExl[0])
 
 
         navigate(`/videoplayer/${filterMoviesEx[0]?.id}/${$('video').get(0).currentTime}/${filterMoviesExQlt[0] == undefined ? 720 : filterMoviesExQlt[0]}`)
     }
 
+    const [skipIntroStatus, setSkipIntroStatus] = useState(sessionStorage.getItem("item_key"))
 
 
+    console.log("resolutionSrc", resolutionSrc);
+
+    // console.log('$(video)', $('video').on(''))
+
+
+
+
+    // console.log('updateStartData', updateStartData)
+    // setTimeout((e) => {
+    //     setUpdateStartData(true);
+    //     window.sessionStorage.setItem("adsStartTime", 10)
+    // }, 10000)
 
     console.log('updateStartData', updateStartData)
-    setTimeout((e) => {
-        setUpdateStartData(true);
-        // window.sessionStorage.setItem("adsStartTime", 30)
-    }, 5000)
 
+
+    $("video").on("timeupdate", () => {
+        // console.log("first", parseInt($("video").get(0).currentTime) == 10)
+
+        if (parseInt($("video").get(0).currentTime) == 20) {
+
+            adsOver(parseInt($("video").get(0).currentTime))
+
+        } else if (parseInt($("video").get(0).currentTime) == 40) {
+
+            adsOver(parseInt($("video").get(0).currentTime))
+
+        } else if (parseInt($("video").get(0).currentTime) == 60) {
+
+            adsOver(parseInt($("video").get(0).currentTime))
+
+        }
+
+
+    })
+
+    const adsOver = (a) => {
+        console.log("adsOver")
+        player.pause()
+        window.sessionStorage.setItem("adsStartTime", a + 1)
+        setUpdateStartData(true)
+        player.load()
+
+    }
+
+    $("video").on('ended', () => {
+
+        if (skipIntroStatus === "true") {
+            console.log("calllll")
+            if (updateStartData === true) {
+                console.log("true status");
+                setUpdateStartData(false)
+                player.load()
+            }
+
+        } else {
+            skipIntroDuction()
+        }
+        console.log("video ended")
+
+    })
+
+    const skipIntroDuction = () => {
+        window.sessionStorage.setItem("item_key", "true")
+        setSkipIntroStatus("true")
+        player.load()
+    }
 
     return (
 
@@ -145,18 +208,19 @@ const VideoPlayer = () => {
                         </a>
                         <div className='d-flex justify-content-center align-items-center main-section'>
                             <div className='video-player-box' onMouseOver={mouserOver}>
+
                                 <Player
                                     fluid={true}
                                     poster="/assets/poster.png"
-                                    src={updateStartData == true ? movies.ads : updateStartData == false ? val.sources : resolutionSrc ? resolutionSrc : val.sources}
+                                    src={skipIntroStatus === "false" ? val.introduction : updateStartData === true ? movies.ads : resolutionSrc ? resolutionSrc : val.sources}
                                     preload='none'
                                     className="hoverrrr"
                                     // width={900}
                                     // height={600}
-                                    ref={
-                                        playerVal => setPlayer(playerVal)
-                                    }
-                                    startTime={updateStartData == false ? window.sessionStorage.getItem("adsStartTime") : resolutionSrc ? currentTime : currentTime}
+                                    ref={player => {
+                                        setPlayer(player)
+                                    }}
+                                    startTime={skipIntroStatus === "false" ? 0 : updateStartData === false ? window.sessionStorage.getItem("adsStartTime") : resolutionSrc ? $('video').get(0).currentTime : currentTime}
 
                                     autoPlay={true}
                                     muted={true}
@@ -184,9 +248,12 @@ const VideoPlayer = () => {
                                                     )
                                                 }
                                                 <div style={{ zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }} className="hideMe" onDoubleClick={rightDoubleClick}>
-                                                    <img src={forward} onDoubleClick={rightDoubleClick} style={{ width: "60px" }} />
+                                                    <img src={forward} onDoubleClick={rightDoubleClick} style={{ width: "60px" }} className="" />
+
 
                                                 </div>
+                                                {/* <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } }>
+                                                </div> */}
                                             </>
                                             : ""
                                         }
@@ -194,32 +261,41 @@ const VideoPlayer = () => {
                                     <BigPlayButton className="d-none" />
 
                                     {
-                                        lockStatus == true ?
-                                            <ControlBar autoHide={false} autoHideTime={3000} disableDefaultControls>
-                                                <LockIcon lockScreenFun={lockScreenFun} lockStatus={lockStatus} />
-                                                <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
-
-                                                <PrevBtn onClick={prevVideoBtn} firstIndex={movies.videos[0].id == id} />
-                                                <PlayToggle order={1} />
-                                                <NextBtn onClick={nextVideoBtn} lastIndex={lastIdFilter.id == id} />
-
-                                                {/* <ReplayControl seconds={10} order={2.1} /> */}
-                                                {/* <ForwardControl seconds={10} order={2.2} /> */}
-
-                                                <ProgressControl />
-                                                <RemainingTimeDisplay className="me-3" />
-                                                <TimeDivider />
-                                                <DurationDisplay className="" />
-                                                <VolumeMenuButton order={2.1} vertical={true} />
-                                                <Setting onChangeResolution={onChangeResolution} />
-
-                                                <FullscreenToggle className="ms-auto" order={3.1} />
-
-                                            </ControlBar> :
+                                        sessionStorage.getItem("item_key") === "false" ?
                                             <ControlBar disableDefaultControls={true} >
-                                                <LockIcon lockScreenFun={lockScreenFun} />
+                                                {/* <ProgressControl /> */}
+                                                <button className='btn btn-outline-primary ms-auto' onClick={() => {
+                                                    skipIntroDuction()
+                                                }}>Skip Introduction</button>
+                                            </ControlBar> :
+                                            lockStatus == true ?
 
-                                            </ControlBar>
+                                                <ControlBar autoHide={false} autoHideTime={3000} disableDefaultControls>
+                                                    <LockIcon lockScreenFun={lockScreenFun} lockStatus={lockStatus} />
+                                                    <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
+
+                                                    <PrevBtn onClick={prevVideoBtn} firstIndex={movies.videos[0].id == id} />
+                                                    <PlayToggle order={1} />
+                                                    <NextBtn onClick={nextVideoBtn} lastIndex={lastIdFilter.id == id} />
+
+                                                    {/* <ReplayControl seconds={10} order={2.1} /> */}
+                                                    {/* <ForwardControl seconds={10} order={2.2} /> */}
+
+                                                    <ProgressControl />
+                                                    <RemainingTimeDisplay className="me-3" />
+                                                    <TimeDivider />
+                                                    <DurationDisplay className="" />
+                                                    <VolumeMenuButton order={2.1} vertical={true} />
+                                                    <Setting onChangeResolution={onChangeResolution} />
+
+                                                    <FullscreenToggle className="ms-auto" order={3.1} />
+
+                                                </ControlBar> :
+                                                <ControlBar disableDefaultControls={true} >
+                                                    <LockIcon lockScreenFun={lockScreenFun} />
+
+                                                </ControlBar>
+
                                     }
                                 </Player>
                             </div>
