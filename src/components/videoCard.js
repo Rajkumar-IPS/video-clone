@@ -15,6 +15,10 @@ const VideoCard = () => {
     })
 
 
+
+    // console.log(window.sessionStorage.getItem("ads"));
+
+
     // console.log( state );
     const [routerState, setRouterState] = useState({})
 
@@ -41,12 +45,18 @@ const VideoCard = () => {
     const details = (e) => {
         console.log(e.target.src);
 
+        // window.sessionStorage.setItem("ads", true)
+        // window.sessionStorage.setItem("adsStartTime", 10)
+        // window.sessionStorage.setItem("adsEndTime", 24)
+
+
         setRouterState({
             currentTime: $(`#${e.target.id}`).get(0).currentTime,
             src: e.target.src
         })
 
         navigate(`/videoplayer/${e.target.id}/${$(`#${e.target.id}`).get(0).currentTime}/720  `)
+
     }
 
     return (
