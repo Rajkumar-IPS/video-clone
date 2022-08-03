@@ -171,6 +171,9 @@ const VideoPlayer = () => {
         else if ( parseInt( $( "video" ).get( 0 ).currentTime ) >= 55 && parseInt( $( "video" ).get( 0 ).currentTime ) <= 60 )
         {
             parseInt( $( "video" ).get( 0 ).currentTime ) == 60 ? adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) ) : $( "#remainTimeForAds" ).text( `Adds will start in a ${ 60 - parseInt( $( "video" ).get( 0 ).currentTime ) } seconds` )
+        } else
+        {
+            $( "#remainTimeForAds" ).text( "" )
         }
 
 
