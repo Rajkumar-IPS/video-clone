@@ -29,7 +29,7 @@ const VideoPlayer = () => {
     const navigate = useNavigate();
     const [ resolutionSrc, setResolutionSrc ] = useState()
     const [ updateStartData, setUpdateStartData ] = useState( false )
-    const [timeAfterAds,setTimeAfterAds] = useState()
+    const [ timeAfterAds, setTimeAfterAds ] = useState()
 
 
     // console.log( resolutionSrc );
@@ -105,6 +105,7 @@ const VideoPlayer = () => {
 
 
     $( "video" ).on( "mousemove", () => {
+        console.log( 'calling' )
         clearTimeout( i );
         $( ".hideMe" ).show();
 
@@ -131,7 +132,7 @@ const VideoPlayer = () => {
     const [ skipIntroStatus, setSkipIntroStatus ] = useState( sessionStorage.getItem( "item_key" ) )
 
 
-    console.log( "resolutionSrc", resolutionSrc );
+    // console.log( "resolutionSrc", resolutionSrc );
 
     // console.log('$(video)', $('video').on(''))
 
@@ -174,7 +175,7 @@ const VideoPlayer = () => {
         console.log( "adsOver" )
         player.pause()
         // window.sessionStorage.setItem( "adsStartTime", a + 1 )
-setTimeAfterAds(a+1)
+        setTimeAfterAds( a + 1 )
         setUpdateStartData( true )
         player.load()
 
@@ -208,7 +209,7 @@ setTimeAfterAds(a+1)
         setSkipIntroStatus( "true" )
         player.load()
     }
-
+    console.log( 'skipIntoStatus', skipIntroStatus )
     return (
 
         <>
@@ -239,74 +240,79 @@ setTimeAfterAds(a+1)
 
                                 >
                                     <div className='d-flex hideDiv' style={ { justifyContent: "space-between", height: "100%", width: "100%", position: "absolute", top: 0, left: 0 } }>
-                                        { lockStatus == true ?
-                                            <>
+                                        {
+                                            updateStartData === false ?
+                                                skipIntroStatus == "true" ?
 
-                                                <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onDoubleClick={ leftDoubleClick }>
-                                                    <img src={ backward } onDoubleClick={ leftDoubleClick } style={ { width: "60px" } } />
-                                                </div >
+                                                    lockStatus == true ?
+                                                        <>
 
-                                                { playVideo == false ?
-                                                    (
-                                                        <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onClick={ playClick }>
-                                                            <img src={ playIcon } onClick={ playClick } style={ { width: "60px" } } />
+                                                            <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onDoubleClick={ leftDoubleClick }>
+                                                                <img src={ backward } onDoubleClick={ leftDoubleClick } style={ { width: "60px" } } />
+                                                            </div >
 
-
-                                                        </div> ) :
-                                                    ( <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onClick={ stopClick }>
-                                                        <img src={ pauseIcon } onClick={ stopClick } style={ { width: "60px" } } />
-
-                                                    </div>
-                                                    )
-                                                }
-                                                <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onDoubleClick={ rightDoubleClick }>
-                                                    <img src={ forward } onDoubleClick={ rightDoubleClick } style={ { width: "60px" } } className="" />
+                                                            { playVideo == false ?
+                                                                (
+                                                                    <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onClick={ playClick }>
+                                                                        <img src={ playIcon } onClick={ playClick } style={ { width: "60px" } } />
 
 
-                                                </div>
-                                                {/* <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } }>
+                                                                    </div> ) :
+                                                                ( <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onClick={ stopClick }>
+                                                                    <img src={ pauseIcon } onClick={ stopClick } style={ { width: "60px" } } />
+
+                                                                </div>
+                                                                )
+                                                            }
+                                                            <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onDoubleClick={ rightDoubleClick }>
+                                                                <img src={ forward } onDoubleClick={ rightDoubleClick } style={ { width: "60px" } } className="" />
+
+
+                                                            </div>
+                                                            {/* <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } }>
                                                 </div> */}
-                                            </>
-                                            : ""
+                                                        </>
+                                                        : "" : <><div style={ { zIndex: 999, cursor: "pointer", width: "100%" } }></div></> : <><div style={ { zIndex: 999, cursor: "pointer", width: "100%" } }></div></>
                                         }
                                     </div>
                                     <BigPlayButton className="d-none" />
 
                                     {
-                                        sessionStorage.getItem( "item_key" ) === "false" ?
+                                        updateStartData === true ?
+
                                             <ControlBar disableDefaultControls={ true } >
-                                                {/* <ProgressControl /> */ }
-                                                <button className='btn btn-outline-primary ms-auto' onClick={ () => {
-                                                    skipIntroDuction()
-                                                } }>Skip Introduction</button>
+                                                <ProgressControl style={ { PointerEvent: "none" } } className="intro-progress" />
+
                                             </ControlBar> :
-                                            lockStatus == true ?
-
-                                                <ControlBar autoHide={ false } autoHideTime={ 3000 } disableDefaultControls>
-                                                    <LockIcon lockScreenFun={ lockScreenFun } lockStatus={ lockStatus } />
-                                                    <PlaybackRateMenuButton rates={ [ 5, 2, 1, 0.5, 0.1 ] } />
-
-                                                    <PrevBtn onClick={ prevVideoBtn } firstIndex={ movies.videos[ 0 ].id == id } />
-                                                    <PlayToggle order={ 1 } />
-                                                    <NextBtn onClick={ nextVideoBtn } lastIndex={ lastIdFilter.id == id } />
-
-                                                    {/* <ReplayControl seconds={10} order={2.1} /> */ }
-                                                    {/* <ForwardControl seconds={10} order={2.2} /> */ }
-
-                                                    <ProgressControl />
-                                                    <RemainingTimeDisplay className="me-3" />
-                                                    <TimeDivider />
-                                                    <DurationDisplay className="" />
-                                                    <VolumeMenuButton order={ 2.1 } vertical={ true } />
-                                                    <Setting onChangeResolution={ onChangeResolution } />
-
-                                                    <FullscreenToggle className="ms-auto" order={ 3.1 } />
-
-                                                </ControlBar> :
+                                            sessionStorage.getItem( "item_key" ) === "false" ?
                                                 <ControlBar disableDefaultControls={ true } >
-                                                    <LockIcon lockScreenFun={ lockScreenFun } />
+                                                    <ProgressControl style={ { PointerEvent: "none" } } className="intro-progress" />
+                                                    <button className='btn btn-outline-primary ms-auto' onClick={ () => {
+                                                        skipIntroDuction()
+                                                    } }>Skip Introduction</button>
+                                                </ControlBar> :
+                                                lockStatus == true ?
 
-                                                </ControlBar>
+                                                    <ControlBar autoHide={ false } autoHideTime={ 3000 } disableDefaultControls>
+                                                        <LockIcon lockScreenFun={ lockScreenFun } lockStatus={ lockStatus } />
+                                                        <PlaybackRateMenuButton rates={ [ 5, 2, 1, 0.5, 0.1 ] } />
+
+                                                        <PrevBtn onClick={ prevVideoBtn } firstIndex={ movies.videos[ 0 ].id == id } />
+                                                        <PlayToggle order={ 1 } />
+                                                        <NextBtn onClick={ nextVideoBtn } lastIndex={ lastIdFilter.id == id } />
+                                                        <ProgressControl />
+                                                        <RemainingTimeDisplay className="me-3" />
+                                                        <TimeDivider />
+                                                        <DurationDisplay className="" />
+                                                        <VolumeMenuButton order={ 2.1 } vertical={ true } />
+                                                        <Setting onChangeResolution={ onChangeResolution } />
+                                                        <FullscreenToggle className="ms-auto" order={ 3.1 } />
+
+                                                    </ControlBar> :
+                                                    <ControlBar disableDefaultControls={ true } >
+                                                        <LockIcon lockScreenFun={ lockScreenFun } />
+
+                                                    </ControlBar>
 
                                     }
                                 </Player>
