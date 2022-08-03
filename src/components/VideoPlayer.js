@@ -47,6 +47,7 @@ const VideoPlayer = () => {
         if ( lockStatus == true )
         {
             player.replay( 10 )
+            // console.log("hello");
         }
     }
 
@@ -105,7 +106,6 @@ const VideoPlayer = () => {
 
 
     $( "video" ).on( "mousemove", () => {
-        console.log( 'calling' )
         clearTimeout( i );
         $( ".hideMe" ).show();
 
@@ -227,7 +227,7 @@ const VideoPlayer = () => {
                                     poster="/assets/poster.png"
                                     src={ skipIntroStatus === "false" ? val.introduction : updateStartData === true ? movies.ads : resolutionSrc ? resolutionSrc : val.sources }
                                     preload='none'
-                                    className="hoverrrr"
+                                    className="video-main-player"
                                     // width={900}
                                     // height={600}
                                     ref={ player => {
@@ -248,24 +248,24 @@ const VideoPlayer = () => {
                                                         <>
 
                                                             <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onDoubleClick={ leftDoubleClick }>
-                                                                <img src={ backward } onDoubleClick={ leftDoubleClick } style={ { width: "60px" } } />
+                                                                <img src={ backward } onDoubleClick={ leftDoubleClick } style={ { width: "60px" } } className="img-icons" />
                                                             </div >
 
                                                             { playVideo == false ?
                                                                 (
                                                                     <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onClick={ playClick }>
-                                                                        <img src={ playIcon } onClick={ playClick } style={ { width: "60px" } } />
+                                                                        <img src={ playIcon } onClick={ playClick } style={ { width: "60px" } } className="img-icons" />
 
 
                                                                     </div> ) :
                                                                 ( <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onClick={ stopClick }>
-                                                                    <img src={ pauseIcon } onClick={ stopClick } style={ { width: "60px" } } />
+                                                                    <img src={ pauseIcon } onClick={ stopClick } style={ { width: "60px" } } className="img-icons" />
 
                                                                 </div>
                                                                 )
                                                             }
                                                             <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onDoubleClick={ rightDoubleClick }>
-                                                                <img src={ forward } onDoubleClick={ rightDoubleClick } style={ { width: "60px" } } className="" />
+                                                                <img src={ forward } onDoubleClick={ rightDoubleClick } style={ { width: "60px" } } className="img-icons" />
 
 
                                                             </div>
