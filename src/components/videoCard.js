@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import videoArray from "../movie.json"
-import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, PlayToggle, CurrentTimeDisplay, TimeDivider, FullscreenToggle, ProgressControl } from 'video-react';
+import { Player, ControlBar, ReplayControl, ForwardControl, BigPlayButton, PlayToggle, CurrentTimeDisplay, TimeDivider, FullscreenToggle, ProgressControl, DurationDisplay } from 'video-react';
 import "../../node_modules/video-react/dist/video-react.css";
 import $ from 'jquery'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -115,7 +115,8 @@ const VideoCard = () => {
                                         <ControlBar autoHide={ true } autoHideTime={ 3000 } disableDefaultControls>
                                             <PlayToggle order={ 1.1 } />
                                             {/* {/ <LoadProgressBars / > /} */ }
-                                            < ProgressControl order={ 2.2 } />
+                                            < ProgressControl order={ 2.1 } />
+                                            <DurationDisplay order={ 2.2 } />
                                             <FullscreenToggle className="ms-auto" order={ 3.1 } />
                                         </ControlBar>
                                     </Player>
