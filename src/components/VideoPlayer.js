@@ -106,6 +106,8 @@ const VideoPlayer = () => {
 
 
     $( "video" ).on( "mousemove", () => {
+
+        // console.log("first--------------")
         clearTimeout( i );
         $( ".hideMe" ).show();
 
@@ -145,38 +147,42 @@ const VideoPlayer = () => {
     //     window.sessionStorage.setItem("adsStartTime", 10)
     // }, 10000)
 
-    console.log( 'updateStartData', updateStartData )
+    // console.log( 'updateStartData', updateStartData )
 
 
     $( "video" ).on( "timeupdate", () => {
         // console.log("first", parseInt($("video").get(0).currentTime) == 10)
 
-        if ( parseInt( $( "video" ).get( 0 ).currentTime ) == 20 )
+
+
+        if ( parseInt( $( "video" ).get( 0 ).currentTime ) >= 15 && parseInt( $( "video" ).get( 0 ).currentTime ) <= 20 )
         {
+            parseInt( $( "video" ).get( 0 ).currentTime ) == 20 ? adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) ) : $( "#remainTimeForAds" ).text( `Adds will start in a ${ 20 - parseInt( $( "video" ).get( 0 ).currentTime ) } seconds` )
 
-            adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) )
 
-        } else if ( parseInt( $( "video" ).get( 0 ).currentTime ) == 40 )
+
+            // adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) )
+
+        }
+        else if ( parseInt( $( "video" ).get( 0 ).currentTime ) >= 35 && parseInt( $( "video" ).get( 0 ).currentTime ) <= 40 )
         {
-
-            adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) )
-
-        } else if ( parseInt( $( "video" ).get( 0 ).currentTime ) == 60 )
+            parseInt( $( "video" ).get( 0 ).currentTime ) == 40 ? adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) ) : $( "#remainTimeForAds" ).text( `Adds will start in a ${ 40 - parseInt( $( "video" ).get( 0 ).currentTime ) } seconds` )
+        }
+        else if ( parseInt( $( "video" ).get( 0 ).currentTime ) >= 55 && parseInt( $( "video" ).get( 0 ).currentTime ) <= 60 )
         {
-
-            adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) )
-
+            parseInt( $( "video" ).get( 0 ).currentTime ) == 60 ? adsOver( parseInt( $( "video" ).get( 0 ).currentTime ) ) : $( "#remainTimeForAds" ).text( `Adds will start in a ${ 60 - parseInt( $( "video" ).get( 0 ).currentTime ) } seconds` )
         }
 
 
     } )
 
     const adsOver = ( a ) => {
-        console.log( "adsOver" )
+        // console.log( "adsOver" )
         player.pause()
         // window.sessionStorage.setItem( "adsStartTime", a + 1 )
         setTimeAfterAds( a + 1 )
         setUpdateStartData( true )
+        $( "#remainTimeForAds" ).text( "" )
         player.load()
 
     }
@@ -197,7 +203,8 @@ const VideoPlayer = () => {
         {
             skipIntroDuction()
         }
-        console.log( "video ended" )
+        // console.log( "video ended" )
+        $( "#remainTimeForAds" ).text( "" )
 
 
     } )
@@ -209,7 +216,12 @@ const VideoPlayer = () => {
         setSkipIntroStatus( "true" )
         player.load()
     }
-    console.log( 'skipIntoStatus', skipIntroStatus )
+    console.log( 'skipIntroStatus', skipIntroStatus )
+    console.log( 'updateStartData', updateStartData )
+    console.log( 'resolutionSrc', resolutionSrc )
+
+
+    // console.log( '    $( "video").get( 0 ).currentTime', $( 'video' )?.get( 0 )?.currentTime)
     return (
 
         <>
@@ -240,6 +252,7 @@ const VideoPlayer = () => {
 
                                 >
                                     <div className='d-flex hideDiv' style={ { justifyContent: "space-between", height: "100%", width: "100%", position: "absolute", top: 0, left: 0 } }>
+                                        <div style={ { zIndex: 999, position: "absolute", bottom: "70px", color: "red" } } className="adsTimer"> <span id='remainTimeForAds'></span> </div>
                                         {
                                             updateStartData === false ?
                                                 skipIntroStatus == "true" ?
@@ -249,6 +262,7 @@ const VideoPlayer = () => {
 
                                                             <div style={ { zIndex: 999, cursor: "pointer", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" } } className="hideMe" onDoubleClick={ leftDoubleClick }>
                                                                 <img src={ backward } onDoubleClick={ leftDoubleClick } style={ { width: "60px" } } className="img-icons" />
+
                                                             </div >
 
                                                             { playVideo == false ?
@@ -276,7 +290,7 @@ const VideoPlayer = () => {
                                         }
                                     </div>
                                     <BigPlayButton className="d-none" />
-
+                                    <div style={ { position: "absolute", bottom: "70px", color: "red" } } className="adsTimer"> <span id='remainTimeForAds'></span> </div>
                                     {
                                         updateStartData === true ?
 
